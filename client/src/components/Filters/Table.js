@@ -93,7 +93,7 @@ class Table extends Component {
                             title={t('edit_table_action')}
                             onClick={() =>
                                 toggleFilteringModal({
-                                    type: MODAL_TYPE.EDIT,
+                                    type: MODAL_TYPE.EDIT_FILTERS,
                                     url: value,
                                 })
                             }

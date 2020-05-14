@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { Trans, withNamespaces } from 'react-i18next';
 import flow from 'lodash/flow';
 
-import { renderInputField, required, isValidPath } from '../../helpers/form';
+import { renderInputField, required, isValidPath, renderSelectField } from '../../helpers/form';
+import { MODAL_OPEN_TIMEOUT, MODAL_TYPE } from '../../helpers/constants';
+
+const filtersCatalog = require('./filters.json');
+
+const renderFilters = filtersCatalog => Object.entries(filtersCatalog)
+    .map(([categoryName, listObj]) =>
+        <div key={categoryName} className="pt-4">
+            <h6 className="form__label form__label--with-desc form__label--bold pb-2"><Trans>{categoryName}</Trans></h6>
+            {Object.entries(listObj).map(([listName, { homepage, source }]) =>
+                <div key={listName}>
+                    <Field
+                        name={btoa(source)}
+                        type="checkbox"
+                        component={renderSelectField}
+                        placeholder={<Trans>{listName}</Trans>}
+                        disabled={false}
+                    />
+                    <a href={homepage}>homepage</a>
+                    <a href={source}>source</a>
+                </div>)}
+        </div>);
 
 const Form = (props) => {
     const {
@@ -14,40 +35,62 @@ const Form = (props) => {
         processingAddFilter,
         processingConfigFilter,
         whitelist,
+        modalType,
+        toggleFilteringModal,
     } = props;
+
+    const openModal = (modalType, timeout = MODAL_OPEN_TIMEOUT) => {
+        toggleFilteringModal();
+        setTimeout(() => toggleFilteringModal({ type: modalType }), timeout);
+    };
+
+    const openFilteringListModal = () => openModal(MODAL_TYPE.CHOOSE_FILTERING_LIST);
+
+    const openAddFiltersModal = () => openModal(MODAL_TYPE.ADD_FILTERS);
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="modal-body">
-                <div className="form__group">
-                    <Field
-                        id="name"
-                        name="name"
-                        type="text"
-                        component={renderInputField}
-                        className="form-control"
-                        placeholder={t('enter_name_hint')}
-                        validate={[required]}
-                    />
-                </div>
-                <div className="form__group">
-                    <Field
-                        id="url"
-                        name="url"
-                        type="text"
-                        component={renderInputField}
-                        className="form-control"
-                        placeholder={t('enter_url_or_path_hint')}
-                        validate={[required, isValidPath]}
-                    />
-                </div>
-                <div className="form__description">
-                    {whitelist ? (
-                        <Trans>enter_valid_allowlist</Trans>
-                    ) : (
-                        <Trans>enter_valid_blocklist</Trans>
-                    )}
-                </div>
+                {modalType === MODAL_TYPE.SELECT_MODAL_TYPE &&
+                <div>
+                    <button onClick={openFilteringListModal} className="btn btn-success btn-standard mr-2 btn-large">
+                        Choose from a list
+                    </button>
+                    <button onClick={openAddFiltersModal} className="btn btn-primary btn-standard">
+                        Add a custom list
+                    </button>
+                </div>}
+                {modalType === MODAL_TYPE.CHOOSE_FILTERING_LIST
+                && renderFilters(filtersCatalog)}
+                {modalType !== MODAL_TYPE.CHOOSE_FILTERING_LIST
+                && modalType !== MODAL_TYPE.SELECT_MODAL_TYPE && <Fragment>
+                    <div className="form__group">
+                        <Field
+                            id="name"
+                            name="name"
+                            type="text"
+                            component={renderInputField}
+                            className="form-control"
+                            placeholder={t('enter_name_hint')}
+                            validate={[required]}
+                        />
+                    </div>
+                    <div className="form__group">
+                        <Field
+                            id="url"
+                            name="url"
+                            type="text"
+                            component={renderInputField}
+                            className="form-control"
+                            placeholder={t('enter_url_or_path_hint')}
+                            validate={[required, isValidPath]}
+                        />
+                    </div>
+                    <div className="form__description">
+                        {whitelist ? <Trans>enter_valid_allowlist</Trans>
+                            : <Trans>enter_valid_blocklist</Trans>}
+                    </div>
+                </Fragment>}
             </div>
             <div className="modal-footer">
                 <button
@@ -76,6 +119,8 @@ Form.propTypes = {
     processingAddFilter: PropTypes.bool.isRequired,
     processingConfigFilter: PropTypes.bool.isRequired,
     whitelist: PropTypes.bool,
+    modalType: PropTypes.string.isRequired,
+    toggleFilteringModal: PropTypes.func.isRequired,
 };
 
 export default flow([

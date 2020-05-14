@@ -1,0 +1,32 @@
+{
+    "test1": {
+        "list1": {
+            "homepage": "https://dbl.oisd.nl",
+            "source": "https://dbl.oisd.nl/"
+        },
+        "list2": {
+            "homepage": "https://www.malwaredomainlist.com",
+            "source": "https://www.malwaredomainlist.com/hostslist/hosts.txt"
+        }
+    },
+    "test2": {
+        "list3": {
+            "homepage": "/2",
+            "source": "/2"
+        },
+        "list4": {
+            "homepage": "/3",
+            "source": "/3"
+        }
+    },
+    "test3": {
+        "list5": {
+            "homepage": "/4",
+            "source": "/4"
+        },
+        "list6": {
+            "homepage": "/5",
+            "source": "/5"
+        }
+    }
+}

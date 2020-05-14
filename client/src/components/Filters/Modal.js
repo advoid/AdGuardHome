@@ -7,11 +7,13 @@ import { MODAL_TYPE } from '../../helpers/constants';
 import Form from './Form';
 import '../ui/Modal.css';
 
+const filtersCatalog = require('./filters.json');
+
 ReactModal.setAppElement('#root');
 
 class Modal extends Component {
     closeModal = () => {
-        this.props.toggleModal();
+        this.props.toggleFilteringModal();
     };
 
     render() {
@@ -23,19 +25,33 @@ class Modal extends Component {
             modalType,
             currentFilterData,
             whitelist,
+            toggleFilteringModal,
+            filters,
         } = this.props;
 
-        const newListTitle = whitelist ? (
-            <Trans>new_allowlist</Trans>
-        ) : (
-            <Trans>new_blocklist</Trans>
-        );
+        const newListTitle = whitelist ? <Trans>new_allowlist</Trans>
+            : <Trans>new_blocklist</Trans>;
 
-        const editListTitle = whitelist ? (
-            <Trans>edit_allowlist</Trans>
-        ) : (
-            <Trans>edit_blocklist</Trans>
-        );
+        const editListTitle = whitelist ? <Trans>edit_allowlist</Trans>
+            : <Trans>edit_blocklist</Trans>;
+
+        const normalizedFilters = filters.reduce((acc, { enabled, url }) => {
+            acc[url] = enabled;
+            return acc;
+        }, {});
+
+        const sources = Object.values(filtersCatalog)
+            .flatMap(el => Object.values(el)).map(el => el.source);
+
+        const initialValuesCatalog = sources.reduce((acc, source) => {
+            if (Object.prototype.hasOwnProperty.call(normalizedFilters, source)) {
+                acc[btoa(source)] = true;
+            }
+            return acc;
+        }, {});
+
+        const initialValues = modalType === MODAL_TYPE.EDIT_FILTERS ?
+            currentFilterData : initialValuesCatalog;
 
         return (
             <ReactModal
@@ -47,23 +63,25 @@ class Modal extends Component {
                 <div className="modal-content">
                     <div className="modal-header">
                         <h4 className="modal-title">
-                            {modalType === MODAL_TYPE.EDIT ? (
-                                editListTitle
-                            ) : (
-                                newListTitle
-                            )}
+                            {modalType === MODAL_TYPE.EDIT_FILTERS && editListTitle}
+                            {modalType === MODAL_TYPE.ADD_FILTERS && newListTitle}
+                            {modalType === MODAL_TYPE.CHOOSE_FILTERING_LIST
+                            && <Trans>choose_blocklists</Trans>}
                         </h4>
                         <button type="button" className="close" onClick={this.closeModal}>
                             <span className="sr-only">Close</span>
                         </button>
                     </div>
                     <Form
-                        initialValues={{ ...currentFilterData }}
+                        modalType={modalType}
+                        initialValues={initialValues}
                         onSubmit={handleSubmit}
                         processingAddFilter={processingAddFilter}
                         processingConfigFilter={processingConfigFilter}
                         closeModal={this.closeModal}
                         whitelist={whitelist}
+                        toggleFilteringModal={toggleFilteringModal}
+                        filters={filters}
                     />
                 </div>
             </ReactModal>
@@ -72,7 +90,7 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-    toggleModal: PropTypes.func.isRequired,
+    toggleFilteringModal: PropTypes.func.isRequired,
     isOpen: PropTypes.bool.isRequired,
     addFilter: PropTypes.func.isRequired,
     isFilterAdded: PropTypes.bool.isRequired,
@@ -83,6 +101,7 @@ Modal.propTypes = {
     currentFilterData: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
     whitelist: PropTypes.bool,
+    filters: PropTypes.array.isRequired,
 };
 
 export default withNamespaces()(Modal);
