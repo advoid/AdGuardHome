@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { withNamespaces, Trans } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import flow from 'lodash/flow';
 
 import { renderInputField } from '../../../helpers/form';
@@ -79,10 +79,10 @@ const Form = (props) => {
                         className="form-control custom-select"
                     >
                         <option value={RESPONSE_FILTER.ALL}>
-                            <Trans>show_all_filter_type</Trans>
+                            {t('show_all_filter_type')}
                         </option>
                         <option value={RESPONSE_FILTER.FILTERED}>
-                            <Trans>show_filtered_type</Trans>
+                            {t('show_filtered_type')}
                         </option>
                     </Field>
                 </div>

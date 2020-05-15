@@ -18,7 +18,13 @@ const FAVICON_PATH = path.resolve(RESOURCES_PATH, 'public/favicon.png');
 
 const PUBLIC_PATH = path.resolve(__dirname, '../build/static');
 
+const BUILD_ENVS = {
+    dev: 'development',
+    prod: 'production',
+};
+
 const config = {
+    mode: BUILD_ENVS[process.env.BUILD_ENV],
     target: 'web',
     context: RESOURCES_PATH,
     entry: {
@@ -102,6 +108,7 @@ const config = {
         ],
     },
     plugins: [
+        new webpack.LoaderOptionsPlugin({ options: {} }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
         }),
@@ -131,7 +138,7 @@ const config = {
             template: HTML_LOGIN_PATH,
         }),
         new ExtractTextPlugin({
-            filename: '[name].[contenthash].css',
+            filename: '[name].[chunkhash].css',
         }),
         new CopyPlugin([
             { from: FAVICON_PATH, to: PUBLIC_PATH },

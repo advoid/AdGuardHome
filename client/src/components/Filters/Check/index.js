@@ -51,7 +51,7 @@ const Check = (props) => {
                                 <button
                                     className="btn btn-success btn-standard btn-large"
                                     type="submit"
-                                    onClick={this.handleSubmit}
+                                    onClick={handleSubmit}
                                     disabled={pristine || invalid || processing}
                                 >
                                     <Trans>check</Trans>
