@@ -24,8 +24,10 @@ const BUILD_ENVS = {
     prod: 'production',
 };
 
+const BUILD_ENV = BUILD_ENVS[process.env.BUILD_ENV];
+
 const config = {
-    mode: BUILD_ENVS[process.env.BUILD_ENV],
+    mode: BUILD_ENV,
     target: 'web',
     context: RESOURCES_PATH,
     entry: {
@@ -111,7 +113,7 @@ const config = {
     plugins: [
         new webpack.LoaderOptionsPlugin({ options: {} }),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+            'process.env.NODE_ENV': JSON.stringify(BUILD_ENV),
         }),
         new CleanWebpackPlugin(['**/*.*'], {
             root: PUBLIC_PATH,
