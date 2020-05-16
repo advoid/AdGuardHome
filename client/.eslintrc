@@ -55,6 +55,7 @@
         "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
         "import/prefer-default-export": "off",
         "no-alert": "off",
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "linebreak-style": 0
     }
 }
