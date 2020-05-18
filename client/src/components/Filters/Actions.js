@@ -36,4 +36,3 @@ Actions.propTypes = {
 };
 
 export default withNamespaces()(Actions);
-

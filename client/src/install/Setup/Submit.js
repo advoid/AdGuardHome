@@ -7,7 +7,7 @@ import flow from 'lodash/flow';
 
 import Controls from './Controls';
 
-let Submit = props => (
+let Submit = (props) => (
     <div className="setup__step">
         <div className="setup__group">
             <h1 className="setup__title">

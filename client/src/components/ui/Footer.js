@@ -70,7 +70,7 @@ class Footer extends Component {
                                     value={i18n.language}
                                     onChange={this.changeLanguage}
                                 >
-                                    {Object.keys(LANGUAGES).map(lang => (
+                                    {Object.keys(LANGUAGES).map((lang) => (
                                         <option key={lang} value={lang}>
                                             {LANGUAGES[lang]}
                                         </option>

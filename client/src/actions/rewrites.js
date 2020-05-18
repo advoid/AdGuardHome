@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import { t } from 'i18next';
 import apiClient from '../api/Api';
-import { addErrorToast, addSuccessToast } from './index';
+import { addErrorToast, addSuccessToast } from './toasts';
 
 export const toggleRewritesModal = createAction('TOGGLE_REWRITES_MODAL');
 
@@ -24,7 +24,7 @@ export const addRewriteRequest = createAction('ADD_REWRITE_REQUEST');
 export const addRewriteFailure = createAction('ADD_REWRITE_FAILURE');
 export const addRewriteSuccess = createAction('ADD_REWRITE_SUCCESS');
 
-export const addRewrite = config => async (dispatch) => {
+export const addRewrite = (config) => async (dispatch) => {
     dispatch(addRewriteRequest());
     try {
         await apiClient.addRewrite(config);
@@ -42,7 +42,7 @@ export const deleteRewriteRequest = createAction('DELETE_REWRITE_REQUEST');
 export const deleteRewriteFailure = createAction('DELETE_REWRITE_FAILURE');
 export const deleteRewriteSuccess = createAction('DELETE_REWRITE_SUCCESS');
 
-export const deleteRewrite = config => async (dispatch) => {
+export const deleteRewrite = (config) => async (dispatch) => {
     dispatch(deleteRewriteRequest());
     try {
         await apiClient.deleteRewrite(config);

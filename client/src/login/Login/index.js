@@ -23,7 +23,7 @@ class Login extends Component {
     };
 
     toggleText = () => {
-        this.setState(prevState => ({
+        this.setState((prevState) => ({
             isForgotPasswordVisible: !prevState.isForgotPasswordVisible,
         }));
     };

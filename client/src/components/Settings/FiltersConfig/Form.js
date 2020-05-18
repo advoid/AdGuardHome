@@ -10,7 +10,7 @@ import { FILTERS_INTERVALS_HOURS } from '../../../helpers/constants';
 const getTitleForInterval = (interval, t) => {
     if (interval === 0) {
         return t('disabled');
-    } else if (interval === 72 || interval === 168) {
+    } if (interval === 72 || interval === 168) {
         return t('interval_days', { count: interval / 24 });
     }
 
@@ -26,7 +26,7 @@ const getIntervalSelect = (processing, t, handleChange, toNumber) => (
         normalize={toNumber}
         disabled={processing}
     >
-        {FILTERS_INTERVALS_HOURS.map(interval => (
+        {FILTERS_INTERVALS_HOURS.map((interval) => (
             <option value={interval} key={interval}>
                 {getTitleForInterval(interval, t)}
             </option>

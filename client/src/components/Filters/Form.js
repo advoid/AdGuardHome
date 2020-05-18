@@ -28,7 +28,7 @@ const Form = (props) => {
                         className="form-control"
                         placeholder={t('enter_name_hint')}
                         validate={[required]}
-                        normalizeOnBlur={data => data.trim()}
+                        normalizeOnBlur={(data) => data.trim()}
                     />
                 </div>
                 <div className="form__group">
@@ -40,7 +40,7 @@ const Form = (props) => {
                         className="form-control"
                         placeholder={t('enter_url_or_path_hint')}
                         validate={[required, isValidPath]}
-                        normalizeOnBlur={data => data.trim()}
+                        normalizeOnBlur={(data) => data.trim()}
                     />
                 </div>
                 <div className="form__description">

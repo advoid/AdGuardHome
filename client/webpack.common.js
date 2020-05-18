@@ -85,14 +85,6 @@ const config = {
                     loader: 'babel-loader',
                     options: {
                         cacheDirectory: true,
-                        presets: [
-                            ['env', {
-                                modules: false,
-                            }],
-                            'react',
-                            'stage-2',
-                        ],
-                        plugins: ['transform-runtime', 'transform-object-rest-spread'],
                     },
                 },
             },

@@ -33,9 +33,9 @@ const renderFilterField = ({
             <span className="logs__notice">
                 <Tooltip text={tooltip} type='tooltip-custom--logs' />
             </span>
-            {!disabled &&
-                touched &&
-                (error && <span className="form__message form__message--error">{error}</span>)}
+            {!disabled
+                && touched
+                && (error && <span className="form__message form__message--error">{error}</span>)}
         </div>
     </Fragment>
 );

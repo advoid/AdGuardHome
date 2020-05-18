@@ -23,10 +23,9 @@ const Counters = (props) => {
         avgProcessingTime,
     } = props;
 
-    const tooltipTitle =
-        interval === 1
-            ? t('number_of_dns_query_24_hours')
-            : t('number_of_dns_query_days', { count: interval });
+    const tooltipTitle = interval === 1
+        ? t('number_of_dns_query_24_hours')
+        : t('number_of_dns_query_days', { count: interval });
 
     return (
         <Card

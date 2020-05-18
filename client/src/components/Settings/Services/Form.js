@@ -44,7 +44,7 @@ const Form = (props) => {
                     </div>
                 </div>
                 <div className="services">
-                    {SERVICES.map(service => (
+                    {SERVICES.map((service) => (
                         <Field
                             key={service.id}
                             icon={`service_${service.id}`}

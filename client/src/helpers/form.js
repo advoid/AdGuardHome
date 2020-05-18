@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
     R_IPV4, R_MAC, R_HOST, R_IPV6, R_CIDR, R_CIDR_IPV6,
     UNSAFE_PORTS, R_URL_REQUIRES_PROTOCOL, R_WIN_ABSOLUTE_PATH, R_UNIX_ABSOLUTE_PATH,
-} from '../helpers/constants';
+} from './constants';
 import { createOnBlurHandler } from './helpers';
 
 export const renderField = (props, elementType) => {
@@ -13,7 +13,7 @@ export const renderField = (props, elementType) => {
         autoComplete, meta: { touched, error },
     } = props;
 
-    const onBlur = event => createOnBlurHandler(event, input, normalizeOnBlur);
+    const onBlur = (event) => createOnBlurHandler(event, input, normalizeOnBlur);
 
     const element = React.createElement(elementType, {
         ...input,
@@ -45,9 +45,9 @@ renderField.propTypes = {
     normalizeOnBlur: PropTypes.func,
 };
 
-export const renderTextareaField = props => renderField(props, 'textarea');
+export const renderTextareaField = (props) => renderField(props, 'textarea');
 
-export const renderInputField = props => renderField(props, 'input');
+export const renderInputField = (props) => renderField(props, 'input');
 
 export const renderGroupField = ({
     input,
@@ -62,7 +62,7 @@ export const renderGroupField = ({
     meta: { touched, error },
     normalizeOnBlur,
 }) => {
-    const onBlur = event => createOnBlurHandler(event, input, normalizeOnBlur);
+    const onBlur = (event) => createOnBlurHandler(event, input, normalizeOnBlur);
 
     return (
         <Fragment>
@@ -77,8 +77,8 @@ export const renderGroupField = ({
                     autoComplete={autoComplete}
                     onBlur={onBlur}
                 />
-                {isActionAvailable &&
-                <span className="input-group-append">
+                {isActionAvailable
+                && <span className="input-group-append">
                         <button
                             type="button"
                             className="btn btn-secondary btn-icon"
@@ -91,9 +91,9 @@ export const renderGroupField = ({
                     </span>
                 }
             </div>
-            {!disabled &&
-            touched &&
-            (error && <span className="form__message form__message--error">{error}</span>)}
+            {!disabled
+            && touched
+            && (error && <span className="form__message form__message--error">{error}</span>)}
         </Fragment>
     );
 };
@@ -106,9 +106,9 @@ export const renderRadioField = ({
             <input {...input} type="radio" className="custom-control-input" disabled={disabled} />
             <span className="custom-control-label">{placeholder}</span>
         </label>
-        {!disabled &&
-        touched &&
-        (error && <span className="form__message form__message--error">{error}</span>)}
+        {!disabled
+        && touched
+        && (error && <span className="form__message form__message--error">{error}</span>)}
     </Fragment>
 );
 
@@ -137,9 +137,9 @@ export const renderSelectField = ({
                     </span>
                 </span>
             </label>
-            {!disabled &&
-            touched &&
-            (error && <span className="form__message form__message--error">{error}</span>)}
+            {!disabled
+            && touched
+            && (error && <span className="form__message form__message--error">{error}</span>)}
         </Fragment>
 );
 
@@ -166,9 +166,9 @@ export const renderServiceField = ({
                 <use xlinkHref={`#${icon}`} />
             </svg>
         </label>
-        {!disabled &&
-        touched &&
-        (error && <span className="form__message form__message--error">{error}</span>)}
+        {!disabled
+        && touched
+        && (error && <span className="form__message form__message--error">{error}</span>)}
     </Fragment>
 );
 
@@ -259,7 +259,7 @@ export const validInstallPort = (value) => {
 export const portTLS = (value) => {
     if (value === 0) {
         return undefined;
-    } else if (value && (value < 80 || value > 65535)) {
+    } if (value && (value < 80 || value > 65535)) {
         return <Trans>form_error_port_range</Trans>;
     }
     return undefined;
@@ -293,7 +293,7 @@ export const isValidUrl = (value) => {
     return undefined;
 };
 
-export const isValidAbsolutePath = value => R_WIN_ABSOLUTE_PATH.test(value)
+export const isValidAbsolutePath = (value) => R_WIN_ABSOLUTE_PATH.test(value)
     || R_UNIX_ABSOLUTE_PATH.test(value);
 
 export const isValidPath = (value) => {
@@ -303,4 +303,4 @@ export const isValidPath = (value) => {
     return undefined;
 };
 
-export const toNumber = value => value && parseInt(value, 10);
+export const toNumber = (value) => value && parseInt(value, 10);

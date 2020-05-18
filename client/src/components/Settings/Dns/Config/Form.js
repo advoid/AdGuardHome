@@ -45,7 +45,7 @@ const customIps = [{
 }];
 
 const getFields = (processing, t) => Object.values(BLOCKING_MODES)
-    .map(mode => (
+    .map((mode) => (
         <Field
             key={mode}
             name="blocking_mode"
@@ -59,8 +59,7 @@ const getFields = (processing, t) => Object.values(BLOCKING_MODES)
 
 let Form = ({
     handleSubmit, submitting, invalid, processing, blockingMode, t,
-}) =>
-    <form onSubmit={handleSubmit}>
+}) => <form onSubmit={handleSubmit}>
         <div className="row">
             <div className="col-12 col-sm-6">
                 <div className="form__group form__group--settings">
@@ -82,8 +81,7 @@ let Form = ({
                     />
                 </div>
             </div>
-            {checkboxes.map(({ name, placeholder, subtitle }) =>
-                <div className="col-12" key={name}>
+            {checkboxes.map(({ name, placeholder, subtitle }) => <div className="col-12" key={name}>
                     <div className="form__group form__group--settings">
                         <Field
                             name={name}
@@ -102,7 +100,7 @@ let Form = ({
                     </label>
                     <div className="form__desc form__desc--top">
                         {Object.values(BLOCKING_MODES)
-                            .map(mode => (
+                            .map((mode) => (
                                 <li key={mode}>
                                     <Trans>{`blocking_mode_${mode}`}</Trans>
                                 </li>

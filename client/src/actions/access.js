@@ -2,9 +2,9 @@ import { createAction } from 'redux-actions';
 import { t } from 'i18next';
 
 import apiClient from '../api/Api';
-import { addErrorToast, addSuccessToast } from './index';
 import { normalizeTextarea } from '../helpers/helpers';
 import { ACTION } from '../helpers/constants';
+import { addErrorToast, addSuccessToast } from './toasts';
 
 export const getAccessListRequest = createAction('GET_ACCESS_LIST_REQUEST');
 export const getAccessListFailure = createAction('GET_ACCESS_LIST_FAILURE');
@@ -25,7 +25,7 @@ export const setAccessListRequest = createAction('SET_ACCESS_LIST_REQUEST');
 export const setAccessListFailure = createAction('SET_ACCESS_LIST_FAILURE');
 export const setAccessListSuccess = createAction('SET_ACCESS_LIST_SUCCESS');
 
-export const setAccessList = config => async (dispatch) => {
+export const setAccessList = (config) => async (dispatch) => {
     dispatch(setAccessListRequest());
     try {
         const { allowed_clients, disallowed_clients, blocked_hosts } = config;
@@ -58,7 +58,7 @@ export const toggleClientBlock = (type, ip) => async (dispatch) => {
         let updatedDisallowedClients = disallowed_clients || [];
 
         if (type === ACTION.unblock && updatedDisallowedClients.includes(ip)) {
-            updatedDisallowedClients = updatedDisallowedClients.filter(client => client !== ip);
+            updatedDisallowedClients = updatedDisallowedClients.filter((client) => client !== ip);
         } else if (type === ACTION.block && !updatedDisallowedClients.includes(ip)) {
             updatedDisallowedClients.push(ip);
         }

@@ -10,7 +10,9 @@ import AddressList from './AddressList';
 
 import { getInterfaceIp } from '../../helpers/helpers';
 import { ALL_INTERFACES_IP } from '../../helpers/constants';
-import { renderInputField, required, validInstallPort, toNumber } from '../../helpers/form';
+import {
+    renderInputField, required, validInstallPort, toNumber,
+} from '../../helpers/form';
 
 const STATIC_STATUS = {
     ENABLED: 'yes',
@@ -18,7 +20,7 @@ const STATIC_STATUS = {
     ERROR: 'error',
 };
 
-const renderInterfaces = (interfaces => (
+const renderInterfaces = ((interfaces) => (
     Object.keys(interfaces).map((item) => {
         const option = interfaces[item];
         const {
@@ -216,11 +218,11 @@ class Settings extends Component {
                             </div>
                         </div>
                         <div className="col-12">
-                            {webStatus &&
-                            <div className="setup__error text-danger">
+                            {webStatus
+                            && <div className="setup__error text-danger">
                                 {webStatus}
-                                {isWebFixAvailable &&
-                                <button
+                                {isWebFixAvailable
+                                && <button
                                     type="button"
                                     className="btn btn-secondary btn-sm ml-2"
                                     onClick={() => this.handleAutofix('web')}
@@ -286,12 +288,12 @@ class Settings extends Component {
                             </div>
                         </div>
                         <div className="col-12">
-                            {dnsStatus &&
-                            <Fragment>
+                            {dnsStatus
+                            && <Fragment>
                                 <div className="setup__error text-danger">
                                     {dnsStatus}
-                                    {isDnsFixAvailable &&
-                                    <button
+                                    {isDnsFixAvailable
+                                    && <button
                                         type="button"
                                         className="btn btn-secondary btn-sm ml-2"
                                         onClick={() => this.handleAutofix('dns')}
@@ -300,8 +302,8 @@ class Settings extends Component {
                                     </button>
                                     }
                                 </div>
-                                {isDnsFixAvailable &&
-                                <div className="text-muted mb-2">
+                                {isDnsFixAvailable
+                                && <div className="text-muted mb-2">
                                     <p className="mb-1">
                                         <Trans>autofix_warning_text</Trans>
                                     </p>

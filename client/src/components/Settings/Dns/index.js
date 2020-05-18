@@ -30,9 +30,9 @@ class Dns extends Component {
         return (
             <Fragment>
                 <PageTitle title={t('dns_settings')} />
-                {isDataLoading ?
-                    <Loading /> :
-                    <Fragment>
+                {isDataLoading
+                    ? <Loading />
+                    : <Fragment>
                         <Upstream
                             processingTestUpstream={settings.processingTestUpstream}
                             testUpstream={testUpstream}

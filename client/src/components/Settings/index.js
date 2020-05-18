@@ -76,11 +76,10 @@ class Settings extends Component {
             t,
         } = this.props;
 
-        const isDataReady =
-            !settings.processing &&
-            !services.processing &&
-            !stats.processingGetConfig &&
-            !queryLogs.processingGetConfig;
+        const isDataReady = !settings.processing
+            && !services.processing
+            && !stats.processingGetConfig
+            && !queryLogs.processingGetConfig;
 
         return (
             <Fragment>

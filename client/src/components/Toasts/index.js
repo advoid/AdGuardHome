@@ -7,7 +7,7 @@ import Toast from './Toast';
 
 import './Toast.css';
 
-const Toasts = props => (
+const Toasts = (props) => (
     <TransitionGroup className="toasts">
         {props.toasts.notices && props.toasts.notices.map((toast) => {
             const { id } = toast;
@@ -39,4 +39,3 @@ export default connect(
     mapStateToProps,
     actionCreators,
 )(Toasts);
-

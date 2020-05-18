@@ -8,7 +8,7 @@ import { formatDetailedDateTime } from '../../helpers/helpers';
 import { isValidAbsolutePath } from '../../helpers/form';
 
 class Table extends Component {
-    getDateCell = row => CellWrap(row, formatDetailedDateTime);
+    getDateCell = (row) => CellWrap(row, formatDetailedDateTime);
 
     renderCheckbox = ({ original }) => {
         const { processingConfigFilter, toggleFilter } = this.props;
@@ -49,8 +49,8 @@ class Table extends Component {
             minWidth: 200,
             Cell: ({ value }) => (
                 <div className="logs__row logs__row--overflow">
-                    {isValidAbsolutePath(value) ? value :
-                        <a
+                    {isValidAbsolutePath(value) ? value
+                        : <a
                             href={value}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -66,7 +66,7 @@ class Table extends Component {
             accessor: 'rulesCount',
             className: 'text-center',
             minWidth: 100,
-            Cell: props => props.value.toLocaleString(),
+            Cell: (props) => props.value.toLocaleString(),
         },
         {
             Header: <Trans>last_time_updated_table_header</Trans>,
@@ -91,11 +91,10 @@ class Table extends Component {
                             type="button"
                             className="btn btn-icon btn-outline-primary btn-sm mr-2"
                             title={t('edit_table_action')}
-                            onClick={() =>
-                                toggleFilteringModal({
-                                    type: MODAL_TYPE.EDIT,
-                                    url: value,
-                                })
+                            onClick={() => toggleFilteringModal({
+                                type: MODAL_TYPE.EDIT,
+                                url: value,
+                            })
                             }
                         >
                             <svg className="icons">

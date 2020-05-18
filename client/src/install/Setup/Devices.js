@@ -9,7 +9,7 @@ import Guide from '../../components/ui/Guide';
 import Controls from './Controls';
 import AddressList from './AddressList';
 
-let Devices = props => (
+let Devices = (props) => (
     <div className="setup__step">
         <div className="setup__group">
             <div className="setup__subtitle">

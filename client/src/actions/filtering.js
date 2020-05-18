@@ -3,8 +3,8 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { t } from 'i18next';
 
 import { normalizeFilteringStatus, normalizeRulesTextarea } from '../helpers/helpers';
-import { addErrorToast, addSuccessToast } from './index';
 import apiClient from '../api/Api';
+import { addErrorToast, addSuccessToast } from './toasts';
 
 export const toggleFilteringModal = createAction('FILTERING_MODAL_TOGGLE');
 export const handleRulesChange = createAction('HANDLE_RULES_CHANGE');
@@ -28,7 +28,7 @@ export const setRulesRequest = createAction('SET_RULES_REQUEST');
 export const setRulesFailure = createAction('SET_RULES_FAILURE');
 export const setRulesSuccess = createAction('SET_RULES_SUCCESS');
 
-export const setRules = rules => async (dispatch) => {
+export const setRules = (rules) => async (dispatch) => {
     dispatch(setRulesRequest());
     try {
         const normalizedRules = normalizeRulesTextarea(rules);
@@ -113,7 +113,7 @@ export const refreshFiltersRequest = createAction('FILTERING_REFRESH_REQUEST');
 export const refreshFiltersFailure = createAction('FILTERING_REFRESH_FAILURE');
 export const refreshFiltersSuccess = createAction('FILTERING_REFRESH_SUCCESS');
 
-export const refreshFilters = config => async (dispatch) => {
+export const refreshFilters = (config) => async (dispatch) => {
     dispatch(refreshFiltersRequest());
     dispatch(showLoading());
     try {
@@ -140,7 +140,7 @@ export const setFiltersConfigRequest = createAction('SET_FILTERS_CONFIG_REQUEST'
 export const setFiltersConfigFailure = createAction('SET_FILTERS_CONFIG_FAILURE');
 export const setFiltersConfigSuccess = createAction('SET_FILTERS_CONFIG_SUCCESS');
 
-export const setFiltersConfig = config => async (dispatch, getState) => {
+export const setFiltersConfig = (config) => async (dispatch, getState) => {
     dispatch(setFiltersConfigRequest());
     try {
         const { enabled } = config;
@@ -170,7 +170,7 @@ export const checkHostSuccess = createAction('CHECK_HOST_SUCCESS');
  * @param {string} host.name
  * @returns {undefined}
  */
-export const checkHost = host => async (dispatch) => {
+export const checkHost = (host) => async (dispatch) => {
     dispatch(checkHostRequest());
     try {
         const data = await apiClient.checkHost(host);

@@ -7,12 +7,10 @@ import flow from 'lodash/flow';
 import { renderRadioField, toNumber } from '../../../helpers/form';
 import { STATS_INTERVALS_DAYS } from '../../../helpers/constants';
 
-const getIntervalFields = (processing, t, toNumber) =>
-    STATS_INTERVALS_DAYS.map((interval) => {
-        const title =
-            interval === 1 ? t('interval_24_hour') : t('interval_days', { count: interval });
+const getIntervalFields = (processing, t, toNumber) => STATS_INTERVALS_DAYS.map((interval) => {
+    const title = interval === 1 ? t('interval_24_hour') : t('interval_days', { count: interval });
 
-        return (
+    return (
             <Field
                 key={interval}
                 name="interval"
@@ -23,8 +21,8 @@ const getIntervalFields = (processing, t, toNumber) =>
                 normalize={toNumber}
                 disabled={processing}
             />
-        );
-    });
+    );
+});
 
 const Form = (props) => {
     const {

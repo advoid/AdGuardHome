@@ -4,7 +4,7 @@ import { Trans, withNamespaces } from 'react-i18next';
 
 import Topline from './Topline';
 
-const UpdateTopline = props => (
+const UpdateTopline = (props) => (
     <Topline type="info">
         <Fragment>
             <Trans
@@ -17,8 +17,8 @@ const UpdateTopline = props => (
             >
                 update_announcement
             </Trans>
-            {props.canAutoUpdate &&
-                <button
+            {props.canAutoUpdate
+                && <button
                     type="button"
                     className="btn btn-sm btn-primary ml-3"
                     onClick={props.getUpdate}

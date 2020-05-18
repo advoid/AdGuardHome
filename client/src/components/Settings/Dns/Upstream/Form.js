@@ -107,11 +107,10 @@ let Form = (props) => {
                     <button
                         type="button"
                         className={testButtonClass}
-                        onClick={() =>
-                            testUpstream({
-                                upstream_dns,
-                                bootstrap_dns,
-                            })
+                        onClick={() => testUpstream({
+                            upstream_dns,
+                            bootstrap_dns,
+                        })
                         }
                         disabled={!upstream_dns || processingTestUpstream}
                     >

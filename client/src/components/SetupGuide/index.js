@@ -25,7 +25,7 @@ const SetupGuide = ({
                     <Trans>install_devices_address</Trans>:
                 </div>
                 <div className="mt-2 font-weight-bold">
-                    {dnsAddresses.map(ip => <li key={ip}>{ip}</li>)}
+                    {dnsAddresses.map((ip) => <li key={ip}>{ip}</li>)}
                 </div>
             </div>
             <Guide dnsAddresses={dnsAddresses} />

@@ -23,7 +23,7 @@ const EncryptionTopline = (props) => {
                 </Trans>
             </Topline>
         );
-    } else if (isAboutExpire) {
+    } if (isAboutExpire) {
         return (
             <Topline type="warning">
                 <Trans components={[<a href="#encryption" key="0">link</a>]}>

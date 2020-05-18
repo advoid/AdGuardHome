@@ -12,7 +12,7 @@ class Dropdown extends Component {
     };
 
     toggleDropdown = () => {
-        this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+        this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
     };
 
     hideDropdown = () => {
