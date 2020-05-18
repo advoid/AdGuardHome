@@ -464,3 +464,5 @@ export const removeStaticLease = (config) => async (dispatch) => {
         dispatch(removeStaticLeaseFailure());
     }
 };
+
+export const removeToast = createAction('REMOVE_TOAST');

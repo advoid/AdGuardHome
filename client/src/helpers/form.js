@@ -28,7 +28,8 @@ export const renderField = (props, elementType) => {
     return (
         <Fragment>
             {element}
-            {!disabled && touched && (error && <span className="form__message form__message--error">{error}</span>)}
+            {!disabled && touched && error
+            && <span className="form__message form__message--error">{error}</span>}
         </Fragment>
     );
 };
@@ -36,13 +37,16 @@ export const renderField = (props, elementType) => {
 renderField.propTypes = {
     id: PropTypes.string.isRequired,
     input: PropTypes.object.isRequired,
-    meta: PropTypes.object.isRequired,
     className: PropTypes.string,
     placeholder: PropTypes.string,
     type: PropTypes.string,
     disabled: PropTypes.bool,
     autoComplete: PropTypes.bool,
     normalizeOnBlur: PropTypes.func,
+    meta: PropTypes.shape({
+        touched: PropTypes.bool,
+        error: PropTypes.object,
+    }).isRequired,
 };
 
 export const renderTextareaField = (props) => renderField(props, 'textarea');
@@ -91,26 +95,50 @@ export const renderGroupField = ({
                     </span>
                 }
             </div>
-            {!disabled
-            && touched
-            && (error && <span className="form__message form__message--error">{error}</span>)}
+            {!disabled && touched && error
+            && <span className="form__message form__message--error">{error}</span>}
         </Fragment>
     );
 };
 
+renderGroupField.propTypes = {
+    input: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    placeholder: PropTypes.string,
+    type: PropTypes.string,
+    disabled: PropTypes.bool,
+    autoComplete: PropTypes.bool,
+    isActionAvailable: PropTypes.bool,
+    removeField: PropTypes.func,
+    meta: PropTypes.shape({
+        touched: PropTypes.bool,
+        error: PropTypes.object,
+    }).isRequired,
+    normalizeOnBlur: PropTypes.func,
+};
+
 export const renderRadioField = ({
     input, placeholder, disabled, meta: { touched, error },
-}) => (
-    <Fragment>
-        <label className="custom-control custom-radio custom-control-inline">
-            <input {...input} type="radio" className="custom-control-input" disabled={disabled} />
-            <span className="custom-control-label">{placeholder}</span>
-        </label>
-        {!disabled
-        && touched
-        && (error && <span className="form__message form__message--error">{error}</span>)}
-    </Fragment>
-);
+}) => <Fragment>
+    <label className="custom-control custom-radio custom-control-inline">
+        <input {...input} type="radio" className="custom-control-input" disabled={disabled} />
+        <span className="custom-control-label">{placeholder}</span>
+    </label>
+    {!disabled
+    && touched
+    && (error && <span className="form__message form__message--error">{error}</span>)}
+</Fragment>;
+
+renderRadioField.propTypes = {
+    input: PropTypes.object.isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    meta: PropTypes.shape({
+        touched: PropTypes.bool,
+        error: PropTypes.object,
+    }).isRequired,
+};
 
 export const renderSelectField = ({
     input,
@@ -120,12 +148,11 @@ export const renderSelectField = ({
     onClick,
     modifier = 'checkbox--form',
     meta: { touched, error },
-}) => (
-        <Fragment>
-            <label className={`checkbox ${modifier}`} onClick={onClick}>
-                <span className="checkbox__marker" />
-                <input {...input} type="checkbox" className="checkbox__input" disabled={disabled} />
-                <span className="checkbox__label">
+}) => <Fragment>
+    <label className={`checkbox ${modifier}`} onClick={onClick}>
+        <span className="checkbox__marker" />
+        <input {...input} type="checkbox" className="checkbox__input" disabled={disabled} />
+        <span className="checkbox__label">
                     <span className="checkbox__label-text checkbox__label-text--long">
                         <span className="checkbox__label-title">{placeholder}</span>
                         {subtitle && (
@@ -136,12 +163,24 @@ export const renderSelectField = ({
                         )}
                     </span>
                 </span>
-            </label>
-            {!disabled
-            && touched
-            && (error && <span className="form__message form__message--error">{error}</span>)}
-        </Fragment>
-);
+    </label>
+    {!disabled
+    && touched
+    && (error && <span className="form__message form__message--error">{error}</span>)}
+</Fragment>;
+
+renderSelectField.propTypes = {
+    input: PropTypes.object.isRequired,
+    placeholder: PropTypes.string,
+    subtitle: PropTypes.string,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func,
+    modifier: PropTypes.string,
+    meta: PropTypes.shape({
+        touched: PropTypes.bool,
+        error: PropTypes.object,
+    }).isRequired,
+};
 
 export const renderServiceField = ({
     input,
@@ -150,27 +189,36 @@ export const renderServiceField = ({
     modifier,
     icon,
     meta: { touched, error },
-}) => (
-    <Fragment>
-        <label className={`service custom-switch ${modifier}`}>
-            <input
-                {...input}
-                type="checkbox"
-                className="custom-switch-input"
-                value={placeholder.toLowerCase()}
-                disabled={disabled}
-            />
-            <span className="service__switch custom-switch-indicator"></span>
-            <span className="service__text">{placeholder}</span>
-            <svg className="service__icon">
-                <use xlinkHref={`#${icon}`} />
-            </svg>
-        </label>
-        {!disabled
-        && touched
-        && (error && <span className="form__message form__message--error">{error}</span>)}
-    </Fragment>
-);
+}) => <Fragment>
+    <label className={`service custom-switch ${modifier}`}>
+        <input
+            {...input}
+            type="checkbox"
+            className="custom-switch-input"
+            value={placeholder.toLowerCase()}
+            disabled={disabled}
+        />
+        <span className="service__switch custom-switch-indicator"></span>
+        <span className="service__text">{placeholder}</span>
+        <svg className="service__icon">
+            <use xlinkHref={`#${icon}`} />
+        </svg>
+    </label>
+    {!disabled && touched && error
+    && <span className="form__message form__message--error">{error}</span>}
+</Fragment>;
+
+renderServiceField.propTypes = {
+    input: PropTypes.object.isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    modifier: PropTypes.string,
+    icon: PropTypes.string,
+    meta: PropTypes.shape({
+        touched: PropTypes.bool,
+        error: PropTypes.object,
+    }).isRequired,
+};
 
 // Validation functions
 // If the value is valid, the validation function should return undefined.
@@ -259,7 +307,8 @@ export const validInstallPort = (value) => {
 export const portTLS = (value) => {
     if (value === 0) {
         return undefined;
-    } if (value && (value < 80 || value > 65535)) {
+    }
+    if (value && (value < 80 || value > 65535)) {
         return <Trans>form_error_port_range</Trans>;
     }
     return undefined;

@@ -37,7 +37,6 @@
     "url-polyfill": "^1.1.7"
   },
   "devDependencies": {
-    "autoprefixer": "^8.6.3",
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-object-rest-spread": "^7.9.6",
@@ -45,10 +44,10 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "@babel/runtime": "^7.9.6",
+    "autoprefixer": "^8.6.3",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^0.1.19",
-    "compression-webpack-plugin": "^1.1.11",
     "copy-webpack-plugin": "^4.6.0",
     "cross-env": "^7.0.2",
     "css-loader": "^2.1.1",

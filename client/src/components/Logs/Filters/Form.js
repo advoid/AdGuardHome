@@ -18,27 +18,40 @@ const renderFilterField = ({
     autoComplete,
     tooltip,
     meta: { touched, error },
-}) => (
-    <Fragment>
-        <div className="logs__input-wrap">
-            <input
-                {...input}
-                id={id}
-                placeholder={placeholder}
-                type={type}
-                className={className}
-                disabled={disabled}
-                autoComplete={autoComplete}
-            />
-            <span className="logs__notice">
+}) => <Fragment>
+    <div className="logs__input-wrap">
+        <input
+            {...input}
+            id={id}
+            placeholder={placeholder}
+            type={type}
+            className={className}
+            disabled={disabled}
+            autoComplete={autoComplete}
+        />
+        <span className="logs__notice">
                 <Tooltip text={tooltip} type='tooltip-custom--logs' />
             </span>
-            {!disabled
-                && touched
-                && (error && <span className="form__message form__message--error">{error}</span>)}
-        </div>
-    </Fragment>
-);
+        {!disabled
+        && touched
+        && (error && <span className="form__message form__message--error">{error}</span>)}
+    </div>
+</Fragment>;
+
+renderFilterField.propTypes = {
+    input: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    placeholder: PropTypes.string,
+    type: PropTypes.string,
+    disabled: PropTypes.string,
+    autoComplete: PropTypes.string,
+    tooltip: PropTypes.string,
+    meta: PropTypes.shape({
+        touched: PropTypes.bool,
+        error: PropTypes.object,
+    }).isRequired,
+};
 
 const Form = (props) => {
     const {

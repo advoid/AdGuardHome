@@ -69,32 +69,32 @@ const renderFieldsWrapper = (placeholder, buttonTitle) => function cell(row) {
         fields,
     } = row;
     return (
-            <div className="form__group">
-                {fields.map((ip, index) => (
-                    <div key={index} className="mb-1">
-                        <Field
-                            name={ip}
-                            component={renderGroupField}
-                            type="text"
-                            className="form-control"
-                            placeholder={placeholder}
-                            isActionAvailable={index !== 0}
-                            removeField={() => fields.remove(index)}
-                            normalizeOnBlur={(data) => data.trim()}
-                        />
-                    </div>
-                ))}
-                <button
-                    type="button"
-                    className="btn btn-link btn-block btn-sm"
-                    onClick={() => fields.push()}
-                    title={buttonTitle}
-                >
-                    <svg className="icon icon--close">
-                        <use xlinkHref="#plus" />
-                    </svg>
-                </button>
-            </div>
+        <div className="form__group">
+            {fields.map((ip, index) => (
+                <div key={index} className="mb-1">
+                    <Field
+                        name={ip}
+                        component={renderGroupField}
+                        type="text"
+                        className="form-control"
+                        placeholder={placeholder}
+                        isActionAvailable={index !== 0}
+                        removeField={() => fields.remove(index)}
+                        normalizeOnBlur={(data) => data.trim()}
+                    />
+                </div>
+            ))}
+            <button
+                type="button"
+                className="btn btn-link btn-block btn-sm"
+                onClick={() => fields.push()}
+                title={buttonTitle}
+            >
+                <svg className="icon icon--close">
+                    <use xlinkHref="#plus" />
+                </svg>
+            </button>
+        </div>
     );
 };
 
@@ -117,6 +117,12 @@ const renderMultiselect = (props) => {
             isMulti
         />
     );
+};
+
+renderMultiselect.propTypes = {
+    input: PropTypes.object.isRequired,
+    placeholder: PropTypes.string,
+    options: PropTypes.object,
 };
 
 let Form = (props) => {
@@ -160,7 +166,8 @@ let Form = (props) => {
                         </div>
                         <div className="form__desc mt-0 mb-2">
                             <Trans components={[
-                                <a href="https://github.com/AdguardTeam/AdGuardHome/wiki/Hosts-Blocklists#ctag" key="0">link</a>,
+                                <a href="https://github.com/AdguardTeam/AdGuardHome/wiki/Hosts-Blocklists#ctag"
+                                   key="0">link</a>,
                             ]}>
                                 tags_desc
                             </Trans>
