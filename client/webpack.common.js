@@ -1,11 +1,10 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require('webpack');
 const flexBugsFixes = require('postcss-flexbugs-fixes');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const RESOURCES_PATH = path.resolve(__dirname);
 const ENTRY_REACT = path.resolve(RESOURCES_PATH, 'src/index.js');
@@ -49,10 +48,11 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [{
+                test: /\.css$/i,
+                use: [
+                    'style-loader',
+                    MiniCssExtractPlugin.loader,
+                    {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 1,
@@ -76,8 +76,7 @@ const config = {
                             ],
                         },
                     },
-                    ],
-                }),
+                ],
             },
             {
                 test: /\.js$/,
@@ -111,10 +110,6 @@ const config = {
         ],
     },
     plugins: [
-        new webpack.LoaderOptionsPlugin({ options: {} }),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(BUILD_ENV),
-        }),
         new CleanWebpackPlugin(['**/*.*'], {
             root: PUBLIC_PATH,
             verbose: false,
@@ -140,11 +135,14 @@ const config = {
             filename: 'login.html',
             template: HTML_LOGIN_PATH,
         }),
-        new ExtractTextPlugin({
-            filename: '[name].[chunkhash].css',
+        new MiniCssExtractPlugin({
+            filename: '[name].[contenthash].css',
         }),
         new CopyPlugin([
-            { from: ASSETS_PATH, to: PUBLIC_ASSETS_PATH },
+            {
+                from: ASSETS_PATH,
+                to: PUBLIC_ASSETS_PATH,
+            },
         ]),
     ],
 };
