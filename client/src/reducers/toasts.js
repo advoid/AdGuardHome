@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 
 import {
     addErrorToast, addNoticeToast, addSuccessToast,
