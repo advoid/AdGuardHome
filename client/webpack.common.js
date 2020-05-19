@@ -2,7 +2,7 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const flexBugsFixes = require('postcss-flexbugs-fixes');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -96,7 +96,7 @@ const config = {
         ],
     },
     plugins: [
-        new CleanWebpackPlugin(['**/*.*'], {
+        new CleanWebpackPlugin({
             root: PUBLIC_PATH,
             verbose: false,
             dry: false,
@@ -124,12 +124,14 @@ const config = {
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
         }),
-        new CopyPlugin([
-            {
-                from: ASSETS_PATH,
-                to: PUBLIC_ASSETS_PATH,
-            },
-        ]),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: ASSETS_PATH,
+                    to: PUBLIC_ASSETS_PATH,
+                },
+            ],
+        }),
     ],
 };
 
