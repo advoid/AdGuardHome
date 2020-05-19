@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import Services from './Services';
 import StatsConfig from './StatsConfig';
@@ -174,4 +174,4 @@ Settings.propTypes = {
     }),
 };
 
-export default withNamespaces()(Settings);
+export default withTranslation()(Settings);

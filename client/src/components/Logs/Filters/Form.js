@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import flow from 'lodash/flow';
 
 import { renderInputField } from '../../../helpers/form';
@@ -122,7 +122,7 @@ Form.propTypes = {
 };
 
 export default flow([
-    withNamespaces(),
+    withTranslation(),
     reduxForm({
         form: 'logsFilterForm',
     }),

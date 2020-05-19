@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
-import { withNamespaces, Trans } from 'react-i18next';
+import { withTranslation, Trans } from 'react-i18next';
 import CellWrap from '../ui/CellWrap';
 import { MODAL_TYPE } from '../../helpers/constants';
 import { formatDetailedDateTime } from '../../helpers/helpers';
@@ -153,4 +153,4 @@ Table.propTypes = {
     whitelist: PropTypes.bool,
 };
 
-export default withNamespaces()(Table);
+export default withTranslation()(Table);

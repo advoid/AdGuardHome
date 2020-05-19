@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import Form from './Form';
 import Card from '../../ui/Card';
@@ -66,4 +66,4 @@ Services.propTypes = {
     setBlockedServices: PropTypes.func.isRequired,
 };
 
-export default withNamespaces()(Services);
+export default withTranslation()(Services);

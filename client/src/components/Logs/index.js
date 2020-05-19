@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import escapeRegExp from 'lodash/escapeRegExp';
 import endsWith from 'lodash/endsWith';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 import { HashLink as Link } from 'react-router-hash-link';
 
 import {
@@ -469,4 +469,4 @@ Logs.propTypes = {
     t: PropTypes.func.isRequired,
 };
 
-export default withNamespaces()(Logs);
+export default withTranslation()(Logs);

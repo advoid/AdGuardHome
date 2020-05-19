@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import enhanceWithClickOutside from 'react-click-outside';
 import classnames from 'classnames';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import { SETTINGS_URLS, FILTERS_URLS, MENU_URLS } from '../../helpers/constants';
 import Dropdown from '../ui/Dropdown';
@@ -138,4 +138,4 @@ Menu.propTypes = {
     t: PropTypes.func,
 };
 
-export default withNamespaces()(enhanceWithClickOutside(Menu));
+export default withTranslation()(enhanceWithClickOutside(Menu));

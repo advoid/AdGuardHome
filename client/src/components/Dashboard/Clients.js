@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import ReactTable from 'react-table';
 import PropTypes from 'prop-types';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import Card from '../ui/Card';
 import Cell from '../ui/Cell';
@@ -151,4 +151,4 @@ Clients.propTypes = {
     disallowedClients: PropTypes.string.isRequired,
 };
 
-export default withNamespaces()(Clients);
+export default withTranslation()(Clients);

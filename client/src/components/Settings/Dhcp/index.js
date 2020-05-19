@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import { DHCP_STATUS_RESPONSE } from '../../../helpers/constants';
 import Form from './Form';
@@ -278,4 +278,4 @@ Dhcp.propTypes = {
     resetDhcp: PropTypes.func.isRequired,
 };
 
-export default withNamespaces()(Dhcp);
+export default withTranslation()(Dhcp);

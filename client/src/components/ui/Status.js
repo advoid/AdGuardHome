@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withNamespaces, Trans } from 'react-i18next';
+import { withTranslation, Trans } from 'react-i18next';
 
 import Card from './Card';
 
@@ -24,4 +24,4 @@ Status.propTypes = {
     reloadPage: PropTypes.func,
 };
 
-export default withNamespaces()(Status);
+export default withTranslation()(Status);

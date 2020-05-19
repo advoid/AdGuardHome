@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import Topline from './Topline';
 
@@ -39,4 +39,4 @@ UpdateTopline.propTypes = {
     processingUpdate: PropTypes.bool,
 };
 
-export default withNamespaces()(UpdateTopline);
+export default withTranslation()(UpdateTopline);

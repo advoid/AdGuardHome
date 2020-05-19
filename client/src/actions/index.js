@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { t } from 'i18next';
+import i18next from 'i18next';
 import axios from 'axios';
 
 import { isVersionGreater, normalizeTextarea, sortClients } from '../helpers/helpers';
@@ -277,7 +277,7 @@ export const testUpstream = (config) => async (dispatch) => {
         const testMessages = Object.keys(upstreamResponse).map((key) => {
             const message = upstreamResponse[key];
             if (message !== 'OK') {
-                dispatch(addErrorToast({ error: t('dns_test_not_ok_toast', { key }) }));
+                dispatch(addErrorToast({ error: i18next.t('dns_test_not_ok_toast', { key }) }));
             }
             return message;
         });
@@ -440,7 +440,7 @@ export const addStaticLease = (config) => async (dispatch) => {
         const name = config.hostname || config.ip;
         await apiClient.addStaticLease(config);
         dispatch(addStaticLeaseSuccess(config));
-        dispatch(addSuccessToast(t('dhcp_lease_added', { key: name })));
+        dispatch(addSuccessToast(i18next.t('dhcp_lease_added', { key: name })));
         dispatch(toggleLeaseModal());
     } catch (error) {
         dispatch(addErrorToast({ error }));
@@ -458,7 +458,7 @@ export const removeStaticLease = (config) => async (dispatch) => {
         const name = config.hostname || config.ip;
         await apiClient.removeStaticLease(config);
         dispatch(removeStaticLeaseSuccess(config));
-        dispatch(addSuccessToast(t('dhcp_lease_deleted', { key: name })));
+        dispatch(addSuccessToast(i18next.t('dhcp_lease_deleted', { key: name })));
     } catch (error) {
         dispatch(addErrorToast({ error }));
         dispatch(removeStaticLeaseFailure());

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 
 import { MODAL_TYPE } from '../../../helpers/constants';
@@ -336,4 +336,4 @@ ClientsTable.propTypes = {
     supportedTags: PropTypes.array.isRequired,
 };
 
-export default withNamespaces()(ClientsTable);
+export default withTranslation()(ClientsTable);

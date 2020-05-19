@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { t } from 'i18next';
+import i18next from 'i18next';
 
 import apiClient from '../api/Api';
 import { normalizeTextarea } from '../helpers/helpers';
@@ -73,9 +73,9 @@ export const toggleClientBlock = (type, ip) => async (dispatch) => {
         dispatch(toggleClientBlockSuccess(values));
 
         if (type === ACTION.unblock) {
-            dispatch(addSuccessToast(t('client_unblocked', { ip })));
+            dispatch(addSuccessToast(i18next.t('client_unblocked', { ip })));
         } else if (type === ACTION.block) {
-            dispatch(addSuccessToast(t('client_blocked', { ip })));
+            dispatch(addSuccessToast(i18next.t('client_blocked', { ip })));
         }
     } catch (error) {
         dispatch(addErrorToast({ error }));

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 import flow from 'lodash/flow';
 
 import Controls from './Controls';
@@ -389,7 +389,7 @@ const SettingsForm = connect((state) => {
 })(Settings);
 
 export default flow([
-    withNamespaces(),
+    withTranslation(),
     reduxForm({
         form: 'install',
         destroyOnUnmount: false,

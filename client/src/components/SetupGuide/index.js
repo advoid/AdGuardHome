@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import Guide from '../ui/Guide';
 import Card from '../ui/Card';
@@ -38,4 +38,4 @@ SetupGuide.propTypes = {
     t: PropTypes.func.isRequired,
 };
 
-export default withNamespaces()(SetupGuide);
+export default withTranslation()(SetupGuide);

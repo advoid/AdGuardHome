@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import Menu from './Menu';
 import logo from '../ui/svg/logo.svg';
@@ -80,4 +80,4 @@ Header.propTypes = {
     t: PropTypes.func.isRequired,
 };
 
-export default withNamespaces()(Header);
+export default withTranslation()(Header);

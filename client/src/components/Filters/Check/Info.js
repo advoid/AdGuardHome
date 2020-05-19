@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import {
     checkFiltered,
@@ -162,4 +162,4 @@ Info.propTypes = {
     t: PropTypes.func.isRequired,
 };
 
-export default withNamespaces()(Info);
+export default withTranslation()(Info);

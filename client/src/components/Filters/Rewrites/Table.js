@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 class Table extends Component {
     cellWrap = ({ value }) => (
@@ -83,4 +83,4 @@ Table.propTypes = {
     handleDelete: PropTypes.func.isRequired,
 };
 
-export default withNamespaces()(Table);
+export default withTranslation()(Table);

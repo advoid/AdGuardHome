@@ -1,6 +1,5 @@
 import i18n from 'i18next';
-import { reactI18nextModule } from 'react-i18next';
-import { initReactI18next } from 'react-i18next/hooks';
+import { initReactI18next } from 'react-i18next';
 import langDetect from 'i18next-browser-languagedetector';
 
 import { LANGUAGES, BASE_LOCALE } from './helpers/twosky';
@@ -130,7 +129,6 @@ const availableLanguages = Object.keys(LANGUAGES);
 i18n
     .use(langDetect)
     .use(initReactI18next)
-    .use(reactI18nextModule)
     .init({
         resources,
         lowerCaseLng: true,

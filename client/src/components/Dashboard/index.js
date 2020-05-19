@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import Statistics from './Statistics';
 import Counters from './Counters';
@@ -172,4 +172,4 @@ Dashboard.propTypes = {
     getAccessList: PropTypes.func.isRequired,
 };
 
-export default withNamespaces()(Dashboard);
+export default withTranslation()(Dashboard);

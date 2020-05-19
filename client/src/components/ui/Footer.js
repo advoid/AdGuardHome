@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import { REPOSITORY, PRIVACY_POLICY_LINK } from '../../helpers/constants';
 import { LANGUAGES } from '../../helpers/twosky';
@@ -112,4 +112,4 @@ Footer.propTypes = {
     getVersion: PropTypes.func,
 };
 
-export default withNamespaces()(Footer);
+export default withTranslation()(Footer);
