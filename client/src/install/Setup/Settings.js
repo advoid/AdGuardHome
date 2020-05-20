@@ -164,6 +164,7 @@ class Settings extends Component {
             interfaces,
             invalid,
             config,
+            t,
         } = this.props;
         const {
             status: webStatus,
@@ -194,7 +195,7 @@ class Settings extends Component {
                                     onChange={handleChange}
                                 >
                                     <option value={ALL_INTERFACES_IP}>
-                                        <Trans>install_settings_all_interfaces</Trans>
+                                        {t('install_settings_all_interfaces')}
                                     </option>
                                     {renderInterfaces(interfaces)}
                                 </Field>
@@ -264,7 +265,7 @@ class Settings extends Component {
                                     onChange={handleChange}
                                 >
                                     <option value={ALL_INTERFACES_IP}>
-                                        <Trans>install_settings_all_interfaces</Trans>
+                                        {t('install_settings_all_interfaces')}
                                     </option>
                                     {renderInterfaces(interfaces)}
                                 </Field>
