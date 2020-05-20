@@ -75,18 +75,6 @@ Form.propTypes = {
     processingAddFilter: PropTypes.bool.isRequired,
     processingConfigFilter: PropTypes.bool.isRequired,
     whitelist: PropTypes.bool,
-    // input: PropTypes.object.isRequired,
-    // id: PropTypes.string,
-    // className: PropTypes.string,
-    // placeholder: PropTypes.string,
-    // type: PropTypes.string,
-    // disabled: PropTypes.bool,
-    // autoComplete: PropTypes.bool,
-    // tooltip: PropTypes.object,
-    // meta: PropTypes.shape({
-    //     touched: PropTypes.bool,
-    //     error: PropTypes.object,
-    // }).isRequired,
 };
 
 export default flow([
