@@ -1,15 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import { Trans, withNamespaces } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { MODAL_TYPE } from '../../helpers/constants';
 import Form from './Form';
 import '../ui/Modal.css';
-
-const filtersCatalog = require('./filters.json');
+import { flagPresentValues } from '../../helpers/helpers';
 
 ReactModal.setAppElement('#root');
+
+const MODAL_TYPE_TO_TITLE_TYPE_MAP = {
+    [MODAL_TYPE.EDIT_FILTERS]: 'edit',
+    [MODAL_TYPE.ADD_FILTERS]: 'new',
+    [MODAL_TYPE.CHOOSE_FILTERING_LIST]: 'choose',
+};
+
+/**
+ * @param modalType {'EDIT_FILTERS' | 'ADD_FILTERS' | 'CHOOSE_FILTERING_LIST'}
+ * @param whitelist {boolean}
+ * @returns {'new_allowlist' | 'edit_allowlist' | 'choose_allowlist' |
+ *           'new_blocklist' | 'edit_blocklist' | 'choose_blocklist' | null}
+ */
+const getTitle = (modalType, whitelist) => {
+    const titleType = MODAL_TYPE_TO_TITLE_TYPE_MAP[modalType];
+    if (!titleType) {
+        return null;
+    }
+    return `${titleType}_${whitelist ? 'allowlist' : 'blocklist'}`;
+};
+
+const getInitialValues = (filters, normalizedFiltersCatalog) => {
+    const filterNames = filters.map(filter => filter.name);
+    return flagPresentValues(filterNames, normalizedFiltersCatalog);
+};
 
 class Modal extends Component {
     closeModal = () => {
@@ -27,31 +51,23 @@ class Modal extends Component {
             whitelist,
             toggleFilteringModal,
             filters,
+            t,
+            filtersCatalog,
+            normalizedFiltersCatalog,
         } = this.props;
 
-        const newListTitle = whitelist ? <Trans>new_allowlist</Trans>
-            : <Trans>new_blocklist</Trans>;
+        let initialValues;
+        switch (modalType) {
+            case MODAL_TYPE.EDIT_FILTERS:
+                initialValues = currentFilterData;
+                break;
+            case MODAL_TYPE.CHOOSE_FILTERING_LIST:
+                initialValues = getInitialValues(filters, normalizedFiltersCatalog);
+                break;
+            default:
+        }
 
-        const editListTitle = whitelist ? <Trans>edit_allowlist</Trans>
-            : <Trans>edit_blocklist</Trans>;
-
-        const normalizedFilters = filters.reduce((acc, { enabled, url }) => {
-            acc[url] = enabled;
-            return acc;
-        }, {});
-
-        const sources = Object.values(filtersCatalog)
-            .flatMap(el => Object.values(el)).map(el => el.source);
-
-        const initialValuesCatalog = sources.reduce((acc, source) => {
-            if (Object.prototype.hasOwnProperty.call(normalizedFilters, source)) {
-                acc[btoa(source)] = true;
-            }
-            return acc;
-        }, {});
-
-        const initialValues = modalType === MODAL_TYPE.EDIT_FILTERS ?
-            currentFilterData : initialValuesCatalog;
+        const title = t(getTitle(modalType, whitelist));
 
         return (
             <ReactModal
@@ -62,17 +78,14 @@ class Modal extends Component {
             >
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h4 className="modal-title">
-                            {modalType === MODAL_TYPE.EDIT_FILTERS && editListTitle}
-                            {modalType === MODAL_TYPE.ADD_FILTERS && newListTitle}
-                            {modalType === MODAL_TYPE.CHOOSE_FILTERING_LIST
-                            && <Trans>choose_blocklists</Trans>}
-                        </h4>
+                        {title && <h4 className="modal-title">{title}</h4>}
                         <button type="button" className="close" onClick={this.closeModal}>
                             <span className="sr-only">Close</span>
                         </button>
                     </div>
                     <Form
+                        filtersCatalog={filtersCatalog}
+                        normalizedFiltersCatalog={normalizedFiltersCatalog}
                         modalType={modalType}
                         initialValues={initialValues}
                         onSubmit={handleSubmit}
@@ -102,6 +115,8 @@ Modal.propTypes = {
     t: PropTypes.func.isRequired,
     whitelist: PropTypes.bool,
     filters: PropTypes.array.isRequired,
+    filtersCatalog: PropTypes.object.isRequired,
+    normalizedFiltersCatalog: PropTypes.object.isRequired,
 };
 
 export default withNamespaces()(Modal);

@@ -7,24 +7,32 @@ import flow from 'lodash/flow';
 import { renderInputField, required, isValidPath, renderSelectField } from '../../helpers/form';
 import { MODAL_OPEN_TIMEOUT, MODAL_TYPE } from '../../helpers/constants';
 
-const filtersCatalog = require('./filters.json');
-
 const renderFilters = filtersCatalog => Object.entries(filtersCatalog)
     .map(([categoryName, listObj]) =>
         <div key={categoryName} className="pt-4">
-            <h6 className="form__label form__label--with-desc form__label--bold pb-2"><Trans>{categoryName}</Trans></h6>
-            {Object.entries(listObj).map(([listName, { homepage, source }]) =>
-                <div key={listName}>
-                    <Field
-                        name={btoa(source)}
-                        type="checkbox"
-                        component={renderSelectField}
-                        placeholder={<Trans>{listName}</Trans>}
-                        disabled={false}
-                    />
-                    <a href={homepage}>homepage</a>
-                    <a href={source}>source</a>
-                </div>)}
+            <h6 className="form__label form__label--with-desc form__label--bold pb-2">
+                <Trans>{categoryName}</Trans></h6>
+            {Object.entries(listObj)
+                .map(([listName, { homepage, source }]) =>
+                    <div key={listName} className="d-flex align-items-center">
+                        <Field
+                            name={listName}
+                            type="checkbox"
+                            component={renderSelectField}
+                            placeholder={<Trans>{listName}</Trans>}
+                            disabled={false}
+                        />
+                         <a href={homepage} className="ml-1">
+                            <svg className="nav-icon">
+                                <use xlinkHref='#dashboard' />
+                            </svg>
+                         </a>
+                        <a href={source}>
+                            <svg className="nav-icon">
+                                <use xlinkHref='#setup' />
+                            </svg>
+                        </a>
+                    </div>)}
         </div>);
 
 const Form = (props) => {
@@ -37,6 +45,7 @@ const Form = (props) => {
         whitelist,
         modalType,
         toggleFilteringModal,
+        filtersCatalog,
     } = props;
 
     const openModal = (modalType, timeout = MODAL_OPEN_TIMEOUT) => {
@@ -53,15 +62,15 @@ const Form = (props) => {
             <div className="modal-body">
                 {modalType === MODAL_TYPE.SELECT_MODAL_TYPE &&
                 <div>
-                    <button onClick={openFilteringListModal} className="btn btn-success btn-standard mr-2 btn-large">
+                    <button onClick={openFilteringListModal}
+                            className="btn btn-success btn-standard mr-2 btn-large">
                         Choose from a list
                     </button>
                     <button onClick={openAddFiltersModal} className="btn btn-primary btn-standard">
                         Add a custom list
                     </button>
                 </div>}
-                {modalType === MODAL_TYPE.CHOOSE_FILTERING_LIST
-                && renderFilters(filtersCatalog)}
+                {modalType === MODAL_TYPE.CHOOSE_FILTERING_LIST && renderFilters(filtersCatalog)}
                 {modalType !== MODAL_TYPE.CHOOSE_FILTERING_LIST
                 && modalType !== MODAL_TYPE.SELECT_MODAL_TYPE && <Fragment>
                     <div className="form__group">
@@ -121,6 +130,7 @@ Form.propTypes = {
     whitelist: PropTypes.bool,
     modalType: PropTypes.string.isRequired,
     toggleFilteringModal: PropTypes.func.isRequired,
+    filtersCatalog: PropTypes.array.isRequired,
 };
 
 export default flow([

@@ -10,43 +10,57 @@ import Actions from './Actions';
 import Table from './Table';
 import { MODAL_TYPE } from '../../helpers/constants';
 
-import { getCurrentFilter, getDiff } from '../../helpers/helpers';
+import {
+    enrichWithKey,
+    flattenObject,
+    getCurrentFilter,
+    getObjDiff,
+} from '../../helpers/helpers';
+
+const filtersCatalog = require('../../../../filters');
+
+export const normalizeFiltersCatalog = (filtersCatalog) => {
+    const allFilters = flattenObject(filtersCatalog);
+    return enrichWithKey(allFilters);
+};
+
+const normalizedFiltersCatalog = normalizeFiltersCatalog(filtersCatalog);
 
 class DnsBlocklist extends Component {
     componentDidMount() {
         this.props.getFilteringStatus();
     }
 
-    handleSubmit = (values, dispatch, action) => {
-        const { name, url } = values;
+    handleSubmit = (values, _, three) => {
+        const { initialValues } = three;
         const { filtering: { modalFilterUrl, modalType } } = this.props;
 
         switch (modalType) {
             case MODAL_TYPE.EDIT_FILTERS:
                 this.props.editFilter(modalFilterUrl, values);
                 break;
-            case MODAL_TYPE.ADD_FILTERS:
+            case MODAL_TYPE.ADD_FILTERS: {
+                const { name, url } = values;
                 this.props.addFilter(url, name);
                 break;
-            // eslint-disable-next-line no-case-declarations
-            case MODAL_TYPE.CHOOSE_FILTERING_LIST:
-                const changedValues = getDiff(action.initialValues, values);
-                const decryptedValues = Object.entries(changedValues)
-                    .reduce((acc, [key, value]) => {
-                        acc[atob(key)] = value;
-                        return acc;
-                    }, {});
+            }
+            case MODAL_TYPE.CHOOSE_FILTERING_LIST: {
+                const changedValues = getObjDiff(initialValues, values);
 
-                Object.entries(decryptedValues).forEach(([url, flag]) => {
-                    if (flag) {
-                        // TODO: pass name
-                        this.props.addFilter(url, url);
-                    } else {
-                        this.props.removeFilter(url);
-                    }
-                });
+                Object.entries(changedValues)
+                    .forEach(([name, shouldAdd]) => {
+                        const url = normalizedFiltersCatalog[name].source;
+
+                        if (shouldAdd) {
+                            this.props.addFilter(url, name);
+                        } else {
+                            this.props.removeFilter(url);
+                        }
+                    });
                 break;
+            }
             default:
+                break;
         }
     };
 
@@ -121,6 +135,8 @@ class DnsBlocklist extends Component {
                     </div>
                 </div>
                 <Modal
+                    filtersCatalog={filtersCatalog}
+                    normalizedFiltersCatalog={normalizedFiltersCatalog}
                     filters={filters}
                     isOpen={isModalOpen}
                     toggleFilteringModal={toggleFilteringModal}
