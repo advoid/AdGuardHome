@@ -48,10 +48,10 @@ class DnsBlocklist extends Component {
                 const changedValues = getObjDiff(initialValues, values);
 
                 Object.entries(changedValues)
-                    .forEach(([name, shouldAdd]) => {
+                    .forEach(([name, shouldAddFilter]) => {
                         const url = normalizedFiltersCatalog[name].source;
 
-                        if (shouldAdd) {
+                        if (shouldAddFilter) {
                             this.props.addFilter(url, name);
                         } else {
                             this.props.removeFilter(url);

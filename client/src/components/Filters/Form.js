@@ -130,7 +130,7 @@ Form.propTypes = {
     whitelist: PropTypes.bool,
     modalType: PropTypes.string.isRequired,
     toggleFilteringModal: PropTypes.func.isRequired,
-    filtersCatalog: PropTypes.array.isRequired,
+    filtersCatalog: PropTypes.object.isRequired,
 };
 
 export default flow([
